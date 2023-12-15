@@ -1,38 +1,42 @@
 import { useParams } from "react-router-dom";
-import { Movie } from "../../App";
-import { useEffect } from "react";
 import { MoviePoster } from "../MoviePoster/MoviePoster";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-type MovieDetailsProps = {
-    getMovieByID: (id: number) => void;
-    movie: Movie
-  };
   
-  const MovieDetails = ({ getMovieByID, movie}: MovieDetailsProps) => {
-    const { id } = useParams<{ id: string }>();
-    // const [isPending, setIsPending] = useState(true);
-    // const [error, setError] = useState<string | null>(null);
+const MovieDetails = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const getMovieByID = useQuery({
+    queryKey: ["movies", id],
+    queryFn: () => {
+      return axios.get(`http://localhost:3001/movies/${id}`)
+        .then((response) => {
+          return response.data;
+        });
+    },
+  });
+
+  if (getMovieByID.isLoading) {
+    return <div>Loading...</div>;
+  }
   
-    useEffect(() => {
-        console.log(id);
-    const parsedId = parseInt(id, 10);
-      getMovieByID(parsedId);
-    }, [getMovieByID, id]);
+  if (getMovieByID.isError) {
+    return <div>Error loading movie details</div>;
+  }
+
+  const movie = getMovieByID.data.movie[0]
   
-    return (
-      <div className="movie-details">
-        {/* {error && <div>{error}</div>}
-        {isPending && <div>Loading...</div>} */}
-        {movie && (
-          <>
-            <MoviePoster src={movie.moviePoster} alt={movie.movieTitle} />
-            <h3>{movie.movieTitle}</h3>
-            <span>{movie.movieGenre}</span>
-            <span>{movie.movieReleaseYear}</span>
-          </>
-        )}
-      </div>
-    );
-  };
- 
+  return (
+    <div className="movie-details">
+      <>
+        <MoviePoster src={movie.moviePoster} alt={movie.movieTitle} />
+        <h3>{movie.movieTitle}</h3>
+        <span>{movie.movieGenre}</span>
+        <span>{movie.movieReleaseYear}</span>
+      </>
+    </div>
+  );
+};
+
 export default MovieDetails;

@@ -1,4 +1,4 @@
-.movieCards {
+.movieCardsWrapper {
     padding: 50px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -6,13 +6,31 @@
 }
 
 .moviePreview {
-    padding: 15px 10px;
+    padding-bottom: 15px;
     display: flex;
     flex-direction: column;
     border: 1px solid lightgray;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 10px;
+}
+
+.moviePoster {
+    overflow: hidden; 
+    border-radius: 10px; 
+}
+
+.movieDetails {
+    display: flex;
+    flex-direction: column;
 }
 
 .moviePreview a {
     text-decoration: none;
     color: black;
+}
+
+.actionsWrapper {
+    display: flex;
+    justify-content: space-around;
 }

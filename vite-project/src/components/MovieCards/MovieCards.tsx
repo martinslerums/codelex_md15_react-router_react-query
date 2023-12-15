@@ -1,21 +1,26 @@
-import { Link } from "react-router-dom";
-import { Movie } from "../../App";
+import { FormEvent } from "react";
+import { Form, Link } from "react-router-dom";
+import { Movie } from "../Movies/Movies";
 import { Button } from "../Button/Button";
 import { MoviePoster } from "../MoviePoster/MoviePoster";
+import { Input } from "../Input/Input";
 import styles from "./MovieCards.module.css";
 
 type MovieCardsProps = {
-  moviesArray: Movie[];
+  moviesArray: Movie [];
   handleDelete: (id: number) => void;
   handleEdit: (id: number, movie: Movie) => void;
   editedMovie: Movie | null;
-  setEditMode: React.Dispatch<React.SetStateAction<Movie | null>>;
+  setEditedMovie: React.Dispatch<React.SetStateAction<Movie | null>>;
 };
 
-export const MovieCards = ({moviesArray,handleDelete,handleEdit,editedMovie,setEditMode,}: MovieCardsProps) => {
-  console.log(moviesArray)
+export const MovieCards = ({moviesArray, handleDelete, handleEdit, editedMovie, setEditedMovie}: MovieCardsProps) => {
+  console.log("moviesArray no MovieCards comp:", moviesArray)
+
+  // const {id, moviePoster, movieTitle, movieGenre, movieReleaseYear, movieTrailer} = editedMovie || {};
+  
   const startEditMode = (movie: Movie) => {
-    setEditMode({
+    setEditedMovie({
       id: movie.id,
       moviePoster: movie.moviePoster,
       movieTitle: movie.movieTitle,
@@ -26,87 +31,109 @@ export const MovieCards = ({moviesArray,handleDelete,handleEdit,editedMovie,setE
   };
 
   const cancelEditMode = () => {
-    setEditMode(null);
+    setEditedMovie(null);
   };
 
   const saveEditMode = () => {
     if (editedMovie) {
       handleEdit(editedMovie.id, editedMovie);
-      setEditMode(null);
+      setEditedMovie(null);
     }
   };
 
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    saveEditMode();
+  }
+
+  // const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setEditedMovie(() => ({
+  //     ...editedMovie,
+  //     [e.target.name]: e.target.value,
+  //   }));
+  // } 
+
   return (
-    <div className={styles.movieCards}>
+    <div className={styles.movieCardsWrapper}>
       {moviesArray.map((movie: Movie) => (
           <div className={styles.moviePreview} key={movie.id}>
             <Link to={`/movies/${movie.id}`}>
-              <MoviePoster src={movie.moviePoster} alt={movie.movieTitle} />
+              <div className={styles.moviePoster}>
+                <MoviePoster src={movie.moviePoster} alt={movie.movieTitle} />
+              </div>
               <h3>{movie.movieTitle}</h3>
-              <span>{movie.movieGenre}</span>
-              <span>{movie.movieReleaseYear}</span>
+              <div className={styles.movieDetails}>
+                <span className={styles.span}>{movie.movieGenre}</span>
+                <span>{movie.movieReleaseYear}</span>
+              </div>
             </Link>
-            <br />
-            <div>
+            <div className={styles.trailerWrapper}>
+              <Button 
+                href={movie.movieTrailer}
+                text="Watch trailer"
+              />
+            </div>
+            <div className={styles.actionsWrapper}>
               <Button text="Delete" onClick={() => {handleDelete(movie.id)}}/>
               <Button text="Edit" onClick={() => {startEditMode(movie)}}/>
             </div>
           </div>
       ))}
       {editedMovie && (
-        <div className={styles.editForm}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              saveEditMode();
-            }}
+          <Form
+            onSubmit={onFormSubmit}
           >
             <h1>EDIT MOVIE</h1>
-            <input
+            <Input 
               type="text"
               value={editedMovie.moviePoster}
+              name="moviePoster"
               onChange={(e) =>
-                setEditMode({
+                setEditedMovie({
                   ...editedMovie,
                   moviePoster: e.target.value,
                 })
               }
             />
-            <input
+            <Input 
               type="text"
               value={editedMovie.movieTitle}
+              name="movieTitle"
               onChange={(e) =>
-                setEditMode({
+                setEditedMovie({
                   ...editedMovie,
                   movieTitle: e.target.value,
                 })
               }
             />
-            <input
+            <Input 
               type="text"
               value={editedMovie.movieGenre}
+              name="movieGenre"
               onChange={(e) =>
-                setEditMode({
+                setEditedMovie({
                   ...editedMovie,
                   movieGenre: e.target.value,
                 })
               }
             />
-            <input
+            <Input 
               type="text"
               value={editedMovie.movieReleaseYear}
+              name="movieReleaseYear"
               onChange={(e) =>
-                setEditMode({
+                setEditedMovie({
                   ...editedMovie,
                   movieReleaseYear: e.target.value,
                 })
               }
             />
-            <input
+            <Input 
               type="text"
               value={editedMovie.movieTrailer}
+              name="movieTrailer"
               onChange={(e) =>
-                setEditMode({
+                setEditedMovie({
                   ...editedMovie,
                   movieTrailer: e.target.value,
                 })
@@ -114,10 +141,9 @@ export const MovieCards = ({moviesArray,handleDelete,handleEdit,editedMovie,setE
             />
             <div>
               <Button type="button" text="Cancel" onClick={cancelEditMode} />
-              <Button type="submit" text="Save" />
+              <Button type="submit" text="Save"/>
             </div>
-          </form>
-        </div>
+          </Form>
       )}
     </div>
   );

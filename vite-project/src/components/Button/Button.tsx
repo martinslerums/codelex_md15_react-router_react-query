@@ -1,19 +1,38 @@
+import styles from "./Button.module.css"
 
+// type ButtonProps = {
+//     text: string;
+//     onClick?: () => void;
+//     type?: HTMLButtonElement['type']
+// }
+
+// export const Button = ({ text, onClick, type = "button" }: ButtonProps) => {
+
+//     return (
+//         <button 
+//             onClick={onClick} 
+//             type={type}
+//         >
+//             {text}
+//         </button>
+//     );
+// };
+ 
 type ButtonProps = {
     text: string;
     onClick?: () => void;
-    type?: "submit" | "reset" | "button";
-}
+    type?: HTMLButtonElement['type'];
+    href?: string;
+} 
 
-export const Button = ({ text, onClick, type }: ButtonProps) => {
-
-    const handleClick = () => {
-        if (onClick) {
-            onClick(); 
-        }
-    };
-    
-    return <button onClick={handleClick} type={type}>{text}</button>;
-
-}
- 
+export const Button = ({ text, onClick, type = "button", href}: ButtonProps) => {
+    if (href) 
+    {
+        return ( 
+        <a className={styles.button} target="_blank" rel="noopener noreferrer" href={href}>
+            {text} 
+        </a>
+        )
+    } 
+        return <button className={styles.button} onClick={onClick} type={type}>{text}</button>;
+};

@@ -1,7 +1,7 @@
 const About = () => {
     return ( 
         <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, dolore.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum animi doloribus dicta repellendus illo laudantium consequuntur placeat molestias, in iste voluptatem illum voluptates consequatur? Illum architecto, odit sit, id modi excepturi necessitatibus aliquid quasi consequuntur nulla, et voluptatum ipsam nobis fugit quae. At quae possimus iure voluptates reprehenderit harum, ea excepturi quaerat sunt quisquam! Voluptas beatae rem perferendis amet quam quo. Commodi rem laborum, reiciendis alias doloremque facilis fugit dolor ex velit voluptatum asperiores, id sed itaque eum cupiditate vero minus, in aut? Dicta temporibus quis tempore inventore nisi laboriosam explicabo fuga sit? Facere facilis ipsam natus dolorum nisi praesentium, ducimus quae, molestias veritatis fuga aliquid molestiae totam fugiat quis eius iste dolores. Asperiores vitae corrupti quae veniam atque libero, quos perferendis, magnam tempora blanditiis quo praesentium dicta autem quibusdam doloremque ad minus nulla cum modi voluptate excepturi illo dolorum, iste quaerat? Accusantium eos repellendus rem veritatis magnam aspernatur nulla perferendis, architecto eveniet ipsum fugiat, quasi placeat pariatur illo, quae fugit. Dicta itaque reiciendis ad facere eos? Architecto laudantium dolorem tenetur obcaecati laborum. Cumque suscipit assumenda ut voluptatum iste, deserunt corporis eum molestias facilis ab necessitatibus ex quae recusandae animi veritatis doloremque atque consectetur voluptates iure commodi autem corrupti. Sit?</p>
         </div>
      );
 }

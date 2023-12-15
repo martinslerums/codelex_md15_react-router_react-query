@@ -1,0 +1,5 @@
+.moviesWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 25px;
+}

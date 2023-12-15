@@ -1,7 +1,9 @@
 import { FormEvent } from "react";
-import { Movie } from "../../App";
-import styles from './InputForm.module.css'
+import { Movie } from "../Movies/Movies";
 import { Button } from "../Button/Button";
+import { Input } from "../Input/Input";
+import Form from "../Form/Form";
+
 
 type InputFormProps = {
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,72 +20,55 @@ export const InputForm = ({ onInputChange, onMovieAdd, inputForm }: InputFormPro
   }
 
   return (
-    <div className={styles.form__wrapper}>
-      <form 
-        className={styles.form}
-        onSubmit={handleMovieAdd}>
-          <div className={styles.input__wrapper}>
-            <label className={styles.label}>Movie poster:</label>
-            <input
-              className={styles.input} 
-              type="text"
-              name="moviePoster" 
-              value={inputForm.moviePoster}
-              onChange={onInputChange} 
-              required
-            />
-          </div>
-          <div className={styles.input__wrapper}>
-            <label className={styles.label}>Movie title:</label>
-            <input 
-              className={styles.input} 
-              type="text"
-              name="movieTitle" 
-              value={inputForm.movieTitle}
-              onChange={onInputChange} 
-              required
-            />
-          </div>
-          <div className={styles.input__wrapper}>
-            <label className={styles.label}>Genre:</label>
-            <input 
-              className={styles.input} 
-              type="text" 
-              name="movieGenre" 
-              value={inputForm.movieGenre}
-              onChange={onInputChange}
-              required
-            />
-          </div>
-          <div className={styles.input__wrapper}>
-            <label className={styles.label}>Release year:</label>
-            <input 
-              className={styles.input} 
-              type="number" 
-              name="movieReleaseYear" 
-              value={inputForm.movieReleaseYear}
-              onChange={onInputChange}
-              required
-            />
-          </div>
-          <div className={styles.input__wrapper}>
-            <label className={styles.label}>Movie trailer:</label>
-            <input 
-              className={styles.input} 
-              type="text" 
-              name="movieTrailer" 
-              value={inputForm.movieTrailer}
-              onChange={onInputChange}
-              required
-            />
-          </div>
+      <Form 
+        onSubmit={handleMovieAdd}
+      >
+          <Input 
+            label="Movie poster:"
+            type="text"
+            name="moviePoster"
+            value={inputForm.moviePoster}
+            onChange={onInputChange} 
+            required
+          />
+          <Input 
+            label="Movie title:"
+            type="text"
+            name="movieTitle" 
+            value={inputForm.movieTitle}
+            onChange={onInputChange} 
+            required
+          />
+          <Input 
+            label="Movie genre:"
+            type="text" 
+            name="movieGenre" 
+            value={inputForm.movieGenre}
+            onChange={onInputChange}
+            required
+          />
+          <Input 
+            label="Movie release year:"
+            type="number" 
+            name="movieReleaseYear" 
+            value={inputForm.movieReleaseYear}
+            onChange={onInputChange}
+            required
+          />
+          <Input 
+            label="Movie trailer:"
+            type="text" 
+            name="movieTrailer" 
+            value={inputForm.movieTrailer}
+            onChange={onInputChange}
+            required
+          />
           <div>
             <Button 
               type="submit"
               text="Add movie"
             />
           </div>
-      </form>
-    </div>
+      </Form>
   );
 };

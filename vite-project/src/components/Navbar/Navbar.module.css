@@ -1,18 +1,22 @@
 .navbar {
-    display: flex;
-    justify-content: center;
-    /* position: relative;
-    top: 20px; */
-}
-
-.heading {
-    font-weight: 700;
-    font-size: 50px;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(153, 153, 153, 0.75);
+    z-index: 2; 
+    padding: 25px 50px;
+    transition: background-color 0.3s ease;
 }
 
 .links {
     display: flex;
     gap: 50px;
-   
+    justify-content: flex-end;
+}
+
+.links a {
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
 }
