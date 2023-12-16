@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import { Movie } from "../Movies/Movies";
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
-import Form from "../Form/Form";
+import MyForm from "../Form/MyForm";
 
 
 type InputFormProps = {
@@ -20,7 +20,7 @@ export const InputForm = ({ onInputChange, onMovieAdd, inputForm }: InputFormPro
   }
 
   return (
-      <Form 
+      <MyForm 
         onSubmit={handleMovieAdd}
       >
           <Input 
@@ -69,6 +69,6 @@ export const InputForm = ({ onInputChange, onMovieAdd, inputForm }: InputFormPro
               text="Add movie"
             />
           </div>
-      </Form>
+      </MyForm>
   );
 };

@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from "./Movies.module.css"
 
 const initialFormvalues = {
-  id: 0,
+  id: -1,
   moviePoster: "",
   movieTitle: "",
   movieGenre: "",
@@ -34,7 +34,7 @@ const Movies = () => {
       return axios.post("http://localhost:3001/movie", movie);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["movies"]);
+      queryClient.invalidateQueries({queryKey: ["movies"]});
     },
     onError: (error) => {
       console.error("Mutation error on movie add:", error);
@@ -57,7 +57,7 @@ const Movies = () => {
       return axios.delete(`http://localhost:3001/movies/${movieId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["movies"]);
+      queryClient.invalidateQueries({queryKey: ["movies"]});
     },
     onError: (error) => {
       console.error("Mutation error on movie delete:", error);
@@ -69,23 +69,19 @@ const Movies = () => {
   };
 
   const editMovieMutation = useMutation({
-    mutationFn: ({ id, editedMovie }: { id: number; editedMovie: Movie }) => {
-      return axios.put(`http://localhost:3001/movies/${id}`, editedMovie)
+    mutationFn: (editedMovie: Movie) => {
+      return axios.put(`http://localhost:3001/movies/${editedMovie.id}`, editedMovie)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["movies"]);
+      queryClient.invalidateQueries({queryKey: ["movies"]});
     },
     onError: (error) => {
       console.error("Mutation error on movie edit:", error);
     },
-    // Šis noņem bet nesaprotu 
-    // queryClient.invalidateQueries({
-    //   predicate: (query) => query.queryKey.includes("movies"),
-    // });
   });
 
-  const handleEdit = (id: number, editedMovie: Movie) => {
-    editMovieMutation.mutate({id, editedMovie});
+  const handleEdit = (editedMovie: Movie) => {
+    editMovieMutation.mutate(editedMovie);
   };
 
   const getMovies = useQuery({
@@ -102,19 +98,6 @@ const Movies = () => {
     },
   });
   console.log("Outside useQuery:", getMovies.data);
-
-  
-
-  // const getMovieByID = useQuery({
-  //   queryKey: ["movies", id],
-  //   queryFn: () => {
-  //     return axios.get(`http://localhost:3001/movies/${id}`)
-  //       .then((response) => {
-  //         return response.data;
-  //       });
-  //   },
-  // });
-  // console.log("Get Movie by ID:", getMovieByID.data)
 
   return (
     <>

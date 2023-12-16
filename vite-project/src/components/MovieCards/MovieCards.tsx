@@ -1,15 +1,16 @@
-import { FormEvent } from "react";
-import { Form, Link } from "react-router-dom";
+// import { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Movie } from "../Movies/Movies";
 import { Button } from "../Button/Button";
 import { MoviePoster } from "../MoviePoster/MoviePoster";
 import { Input } from "../Input/Input";
+import MyForm from "../Form/MyForm";
 import styles from "./MovieCards.module.css";
 
 type MovieCardsProps = {
   moviesArray: Movie [];
   handleDelete: (id: number) => void;
-  handleEdit: (id: number, movie: Movie) => void;
+  handleEdit: (movie: Movie) => void;
   editedMovie: Movie | null;
   setEditedMovie: React.Dispatch<React.SetStateAction<Movie | null>>;
 };
@@ -35,13 +36,15 @@ export const MovieCards = ({moviesArray, handleDelete, handleEdit, editedMovie, 
   };
 
   const saveEditMode = () => {
+    
+
     if (editedMovie) {
-      handleEdit(editedMovie.id, editedMovie);
+      handleEdit(editedMovie);
       setEditedMovie(null);
     }
   };
 
-  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     saveEditMode();
   }
@@ -80,7 +83,7 @@ export const MovieCards = ({moviesArray, handleDelete, handleEdit, editedMovie, 
           </div>
       ))}
       {editedMovie && (
-          <Form
+          <MyForm
             onSubmit={onFormSubmit}
           >
             <h1>EDIT MOVIE</h1>
@@ -118,7 +121,7 @@ export const MovieCards = ({moviesArray, handleDelete, handleEdit, editedMovie, 
               }
             />
             <Input 
-              type="text"
+              type="number"
               value={editedMovie.movieReleaseYear}
               name="movieReleaseYear"
               onChange={(e) =>
@@ -143,7 +146,7 @@ export const MovieCards = ({moviesArray, handleDelete, handleEdit, editedMovie, 
               <Button type="button" text="Cancel" onClick={cancelEditMode} />
               <Button type="submit" text="Save"/>
             </div>
-          </Form>
+          </MyForm>
       )}
     </div>
   );

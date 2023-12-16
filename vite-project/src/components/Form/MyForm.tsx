@@ -1,12 +1,11 @@
-import styles from "./Form.module.css"
-import { FormEvent } from "react";
+import styles from "./MyForm.module.css"
 
 type FormProps = {
-    onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     children? : React.ReactNode
 }
 
-const Form = ({onSubmit, children}: FormProps) => {
+const MyForm = ({onSubmit, children}: FormProps) => {
     return ( 
         <div className={styles.form__wrapper}>
             <form className={styles.form} onSubmit={onSubmit}>
@@ -16,4 +15,4 @@ const Form = ({onSubmit, children}: FormProps) => {
      );
 }
  
-export default Form;
+export default MyForm;

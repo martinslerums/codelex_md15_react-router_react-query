@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { MoviePoster } from "../MoviePoster/MoviePoster";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
   
 const MovieDetails = () => {
@@ -12,6 +13,7 @@ const MovieDetails = () => {
     queryFn: () => {
       return axios.get(`http://localhost:3001/movies/${id}`)
         .then((response) => {
+          console.log('Movie Details Response:', response.data);
           return response.data;
         });
     },
@@ -35,6 +37,9 @@ const MovieDetails = () => {
         <span>{movie.movieGenre}</span>
         <span>{movie.movieReleaseYear}</span>
       </>
+      <VideoPlayer 
+        videoUrl={movie.movieTrailer}
+      />
     </div>
   );
 };
